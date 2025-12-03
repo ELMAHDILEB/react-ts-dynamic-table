@@ -1,9 +1,16 @@
-import TableUI from "./components/Table/TableUI"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NotFoundPage from "./pages/NotFoundPage";
+import Comments from "./pages/Comments";
 
 const App = () => {
-    return(
-      <TableUI/>
-    )
-}
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/comments" element={<Comments />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;

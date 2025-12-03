@@ -2,13 +2,13 @@ import { TypesData } from "../../Types/Types";
 
 const searchLogic = (data: TypesData[], searchTerm: string ) => {
       if(!searchTerm) return data;
-      const search = searchTerm.toLowerCase();
+      const search = searchTerm.toLowerCase().trim();
 
       return  data?.filter((item)=>(
-        item.name.toLowerCase().includes(search) || 
-        item.email.toLowerCase().includes(search) ||
-        item.body.toLowerCase().includes(search)
-  ))
+        item?.name.toLowerCase().includes(search) || 
+        item?.email.toLowerCase().includes(search) ||
+        item?.body.toLowerCase().includes(search) 
+  ));
  
   
 }

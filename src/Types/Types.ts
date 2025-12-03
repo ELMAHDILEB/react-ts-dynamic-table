@@ -5,11 +5,19 @@ export type TypesData = {
     body: string,
 }
 
+export interface CommentsResponse {
+    data: TypesData[];
+    totalPages: number;
+  }
+
 export type ButtonProps ={
     page: number,
     setPage: (page: number)=> void,
+    limit: number,
     hasNext: boolean,
     hasPrev:boolean,
+    setSearchParams: (value: Record<string, string>)=> void,
+    totalPages: number
 }
 
 export interface TableHeaderInetface {
@@ -24,4 +32,12 @@ export interface TableRowInetface {
 
 export type searchTermProps ={
     setSearchTerm: (search: string)=>void;
+    value: string,
 }
+
+export type paginateTypes = {
+    page:number, 
+    limit:number,
+    search:string,
+}
+
