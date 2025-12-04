@@ -1,4 +1,5 @@
 import { ButtonProps } from "../../Types/Types";
+import DataShowing from "./DataShowing";
 
 const PaginationButton = ({
   page,
@@ -7,13 +8,27 @@ const PaginationButton = ({
   hasNext,
   hasPrev,
   setSearchParams,
-  totalPages
+  setValueLimit,
+  totalPages,
 }: ButtonProps) => {
   return (
     <section className="w-full flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white border border-gray-200 rounded-xl shadow-sm">
       <span className="text-slate-700 font-medium">
-        Page:  <span className="font-bold text-slate-900">{page} Of {totalPages}</span>
+        Page:{" "}
+        <span className="font-bold text-slate-900">
+          {page} Of {totalPages}
+        </span>
       </span>
+      <DataShowing
+        valueLimit={limit}
+        onSetValueLimit={(val) => {
+          setValueLimit(Number(val));
+          setSearchParams({
+            _page: String(page),
+            _limit: String(val),
+          });
+        }}
+      />
       <div className="flex items-center gap-4">
         <button
           onClick={() => {

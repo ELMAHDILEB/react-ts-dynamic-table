@@ -2,7 +2,7 @@ import { TableHeaderInetface } from "../../Types/Types"
 
 const TableHeader: React.FC<TableHeaderInetface> = ({allSelected, onSelectedAll}: TableHeaderInetface) => {
   return (
-<thead className="bg-gray-100">
+
   <tr className="border-b border-gray-300">
     <th className="p-3 border-r w-10">
       <input type="checkbox" checked={allSelected} onChange={onSelectedAll} />
@@ -14,7 +14,7 @@ const TableHeader: React.FC<TableHeaderInetface> = ({allSelected, onSelectedAll}
     <th className="p-3 border-r min-w-[100px]">Status</th>
     <th className="p-3 min-w-[120px]">Actions</th>
   </tr>
-</thead>
+
 
   )
 }

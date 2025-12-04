@@ -17,6 +17,7 @@ export type ButtonProps ={
     hasNext: boolean,
     hasPrev:boolean,
     setSearchParams: (value: Record<string, string>)=> void,
+    setValueLimit:(value: number)=>void,
     totalPages: number
 }
 
@@ -32,7 +33,6 @@ export interface TableRowInetface {
 
 export type searchTermProps ={
     setSearchTerm: (search: string)=>void;
-    value: string,
 }
 
 export type paginateTypes = {
@@ -41,3 +41,8 @@ export type paginateTypes = {
     search:string,
 }
 
+
+export type dataShowingType ={
+    valueLimit: number,
+    onSetValueLimit:(value: number)=>void
+}

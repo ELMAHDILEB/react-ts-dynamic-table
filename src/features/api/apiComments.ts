@@ -4,6 +4,7 @@ import { TypesData,  paginateTypes } from "../../Types/Types";
 export const api = createApi({
     reducerPath: "commentsApi",
     baseQuery: fetchBaseQuery({baseUrl: "https://jsonplaceholder.typicode.com/"}),
+    tagTypes:["Comments"],
     endpoints: (build)=>({
         getComments: build.query<{data: TypesData[], totalCount: number, totalPages: number}, paginateTypes>({
             query: ({ page = 1, limit = 10, search }) => {
@@ -20,13 +21,28 @@ export const api = createApi({
                   totalCount,
                   totalPages
                  }
-            }
+            },
+            
+            providesTags:["Comments"],
+       
           }),
-          
-          
-
-        })
+          updateComment: build.mutation<TypesData, Partial<TypesData>>({
+               query:({id, ...data})=>({
+                  url: `comments/${id}`,
+                  method: "PUT",
+                  body: data
+               }),
+               invalidatesTags:["Comments"]
+          }),
+          deleteComment: build.mutation<void, number>({
+                    query:(id)=>({
+                      url: `comment/${id}`,
+                      method: "DELETE",
+                    }),
+                    invalidatesTags:["Comments"],
+          })
+        }),
     })
 
 
-export const { useGetCommentsQuery  } = api;
+export const { useGetCommentsQuery, useDeleteCommentMutation, useUpdateCommentMutation  } = api;

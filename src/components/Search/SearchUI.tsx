@@ -1,7 +1,7 @@
 import React from "react";
 import { searchTermProps } from "../../Types/Types";
 
-const SearchUI: React.FC<searchTermProps> = ({ setSearchTerm, value }) => {
+const SearchUI: React.FC<searchTermProps> = ({ setSearchTerm }) => {
   return (
     <section className="w-full md:w-[80%] mx-auto p-3 relative flex items-center justify-center">
       
@@ -23,9 +23,8 @@ const SearchUI: React.FC<searchTermProps> = ({ setSearchTerm, value }) => {
 
 
       <input
-        type="search"
+        type="text"
         placeholder="Search..."
-        value={value}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="
           w-full 

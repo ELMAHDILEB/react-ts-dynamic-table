@@ -13,14 +13,14 @@ import useDebounced from "../hooks/useDebounced";
 const Comments = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const debounce = useDebounced(searchTerm, 500)
+  const debounce = useDebounced(searchTerm, 500);
   const [page, setPage] = useState<number>(
     Number(searchParams.get("_page") || 1)
   );
-  const [limit] = useState<number>(Number(searchParams.get("_limit") || 10));
+  const [limit, setValueLimit] = useState<number>(Number(searchParams.get("_limit") || 10));
   const [selected, setSelected] = useState<number[]>([]);
   const {
-    data= {data : [], totalCount:0, totalPages: 1},
+    data = { data: [], totalCount: 0, totalPages: 1 },
     isLoading,
     error,
   } = useGetCommentsQuery({
@@ -42,8 +42,6 @@ const Comments = () => {
     );
   if (error) return <div>Failed To Fetch Data</div>;
 
-
-
   const handleSelectAll = () => {
     if (selected.length === comments?.length) {
       setSelected([]);
@@ -63,37 +61,38 @@ const Comments = () => {
   const hasNext = page < data.totalPages;
   const hasPrev = page > 1;
 
-
-
   return (
     <>
-      <SearchUI setSearchTerm={setSearchTerm} value={debounce} />
-<div className="w-full overflow-x-auto rounded-md shadow-sm border border-gray-300">
-  <table className="min-w-max w-full text-left">
-    <TableHeader
-      allSelected={comments.length === selected.length}
-      onSelectedAll={handleSelectAll}
-    />
-    <tbody>
-      {filtredData.length > 0 ? (
-        filtredData.map((item) => (
-          <TableRow
-            key={item.id}
-            item={item}
-            selectedOne={selected}
-            onSelectedOne={handleSelectOne}
-          />
-        ))
-      ) : (
-        <tr>
-          <td colSpan={7} className="text-center py-4">
-            No data found
-          </td>
-        </tr>
-      )}
-    </tbody>
-  </table>
-</div>
+      <SearchUI setSearchTerm={setSearchTerm} />
+      <div className="w-full overflow-x-auto rounded-md shadow-sm border border-gray-300">
+        <table className="min-w-max w-full text-left">
+          <thead className="bg-gray-100">
+            <TableHeader
+              allSelected={comments.length === selected.length}
+              onSelectedAll={handleSelectAll}
+            />
+          </thead>
+
+          <tbody>
+            {filtredData.length > 0 ? (
+              filtredData.map((item) => (
+                <TableRow
+                  key={item.id}
+                  item={item}
+                  selectedOne={selected}
+                  onSelectedOne={handleSelectOne}
+                />
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7} className="text-center py-4">
+                  No data found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {filtredData.length > 0 ? (
         <PaginationButton
@@ -103,6 +102,7 @@ const Comments = () => {
           hasNext={hasNext}
           hasPrev={hasPrev}
           setSearchParams={setSearchParams}
+          setValueLimit={setValueLimit}
           totalPages={totalPages}
         />
       ) : (
