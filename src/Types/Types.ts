@@ -29,6 +29,7 @@ export interface TableRowInetface {
     item: TypesData,
     selectedOne: number[],
     onSelectedOne: (id: number)=>void;
+    onDelete:(id: number)=>void;
 }
 
 export type searchTermProps ={

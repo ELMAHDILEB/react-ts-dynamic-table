@@ -36,7 +36,7 @@ export const api = createApi({
           }),
           deleteComment: build.mutation<void, number>({
                     query:(id)=>({
-                      url: `comment/${id}`,
+                      url: `comments/${id}`,
                       method: "DELETE",
                     }),
                     invalidatesTags:["Comments"],

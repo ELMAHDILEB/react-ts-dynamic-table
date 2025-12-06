@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGetCommentsQuery } from "../features/api/apiComments";
+import { useDeleteCommentMutation, useGetCommentsQuery } from "../features/api/apiComments";
 import searchLogic from "../components/Search/searchLogic";
 import { FadeLoader } from "react-spinners";
 import { TypesData } from "../Types/Types";
@@ -28,6 +28,7 @@ const Comments = () => {
     limit,
     search: debounce,
   });
+  const [deleteComment] = useDeleteCommentMutation();
 
   const comments = data?.data || [];
   const totalPages = data?.totalPages || 1;
@@ -57,6 +58,14 @@ const Comments = () => {
       setSelected([...selected, id]);
     }
   };
+  const handleDelete = async(id: number)=>{
+    try {
+      await deleteComment(id).unwrap(); // send request
+      setSelected(selected.filter(i => i !== id))
+    } catch (error) {
+        console.log("Delete Failed", error)
+    }
+  }
 
   const hasNext = page < data.totalPages;
   const hasPrev = page > 1;
@@ -81,6 +90,7 @@ const Comments = () => {
                   item={item}
                   selectedOne={selected}
                   onSelectedOne={handleSelectOne}
+                  onDelete={handleDelete}
                 />
               ))
             ) : (

@@ -1,6 +1,6 @@
 import { TableRowInetface } from "../../Types/Types";
 
-const TableRow = ({ item, selectedOne, onSelectedOne }: TableRowInetface) => {
+const TableRow = ({ item, selectedOne, onSelectedOne, onDelete }: TableRowInetface) => {
   const { id, name, email, body } = item;
   const isSelected = selectedOne.includes(id);
 
@@ -35,7 +35,7 @@ const TableRow = ({ item, selectedOne, onSelectedOne }: TableRowInetface) => {
           <button className="px-2 py-1 text-blue-600 hover:underline text-sm cursor-pointer">
             Edit
           </button>
-          <button className="px-2 py-1 text-red-600 hover:underline text-sm cursor-pointer">
+          <button className="px-2 py-1 text-red-600 hover:underline text-sm cursor-pointer" onClick={()=> onDelete(id)}>
             Delete
           </button>
         </td>
